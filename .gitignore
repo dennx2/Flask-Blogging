@@ -1,0 +1,15 @@
+# Ignore the .venv directory
+.venv/
+
+# Ignore VSCode specific files and folders
+.vscode/
+*.code-workspace
+
+# Ignore Python-specific files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# Ignore any other project-specific files or directories you want
