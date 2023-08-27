@@ -13,3 +13,5 @@ __pycache__/
 *.db
 
 # Ignore any other project-specific files or directories you want
+settings.json
+.env
