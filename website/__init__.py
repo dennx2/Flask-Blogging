@@ -2,11 +2,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
-
+from .config import Config
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = "helloworld"
+    app.config.from_object(Config)
 
     from .views import views
     from .auth import auth
