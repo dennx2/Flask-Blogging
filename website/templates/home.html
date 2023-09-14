@@ -1,9 +1,35 @@
 {% extends "layout/base.html" %}
 {% block title %}
-    Home
+Home
 {% endblock %}
 
 {% block content %}
-    This is a sample content {{user.username}}
-{% endblock %}
+<h1 class=" text-center my-3">Posts</h1>
+<div id="posts">
+    {% for post in posts %}
+    <div class="card border-dark my-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <a href="/posts/{{post.user.username}}">{{post.user.username}}</a>
+            {% if user.id == post.author %}
+            <ul class="dropdown open">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"></button>
+                <li class="dropdown-menu" aria-labelledby="triggerId">
+                    <a class="dropdown-item" href="/delete-post/{{post.id}}">Delete</a>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{post.text}}</p>
+        </div>
+        <div class="card-footer text-muted">{{post.date_created.strftime('%Y-%m-%d %H:%M:%S')}}</div>
+    </div>
+    {% endfor %}
+    <div class="text-center">
+        <a class="btn btn-primary" href="/create-post" role="button">Create a Post</a>
+    </div>
+</div>
 
+
+{% endblock %}
