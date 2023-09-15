@@ -32,7 +32,7 @@ Before you can run the Flask program, make sure you have the following prerequis
     pip install -r requirements.txt
     ```
 
-## Running the Flask Program
+## Running the Application
 
 Follow these steps to run the Flask program:
 
@@ -48,10 +48,10 @@ Follow these steps to run the Flask program:
     python app.py
     ``` 
 
-This command will start the Flask development server, and you should see output indicating that the server is running. By default, the server should be accessible at `http://localhost:5000/` in your web browser.
+    This command will start the Flask development server, and you should see output indicating that the server is running. By default, the server should be accessible at `http://localhost:5000/` in your web browser.
 
 4. **Access the Application**: Open a web browser and go to `http://localhost:5000/` to access the Flask application.
 
 5. **Stopping the Server**: To stop the Flask development server, press `Ctrl+C` in the terminal where it's running.
 
-That's it! You should now have the Flask program up and running on your local machine.
+That's it! You should now have the application up and running on your local machine.
