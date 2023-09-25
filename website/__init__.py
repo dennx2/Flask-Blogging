@@ -23,6 +23,8 @@ def create_app():
 
     # Import db models
     from .models.users import User
+    from .models.posts import Post
+    from .models.comments import Comment
     
     # Init Database
     db.init_app(app)

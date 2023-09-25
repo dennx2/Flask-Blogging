@@ -1,7 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
+from .. import db
 from flask_login import UserMixin
 from datetime import datetime
-from .. import db
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -10,3 +9,4 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(80))
     date_created = db.Column(db.DateTime, default = datetime.now())
     posts = db.relationship("Post", backref="user", passive_deletes=True)
+    comments = db.relationship("Comment", backref="user", passive_deletes=True)
