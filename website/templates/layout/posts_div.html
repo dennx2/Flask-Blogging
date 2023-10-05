@@ -6,15 +6,15 @@ content %}
     <div class="card border-dark my-3">
         <div class="card-header d-flex justify-content-between align-items-center">
             <a href="/posts/{{post.user.username}}">{{post.user.username}}</a>
-
             {% if user.id == post.author_id %}
-            <ul class="dropdown open m-0">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false"></button>
-                <li class="dropdown-menu" aria-labelledby="triggerId">
-                    <a class="dropdown-item" href="/delete-post/{{post.id}}">Delete</a>
-                </li>
-            </ul>
+                <ul class="dropdown open m-0">
+                    
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false"></button>
+                    <li class="dropdown-menu" aria-labelledby="triggerId">
+                        <a class="dropdown-item" href="/delete-post/{{post.id}}">Delete</a>
+                    </li>
+                </ul>
             {% endif %}
         </div>
 
@@ -30,6 +30,7 @@ content %}
                                     <a href="/posts/{{post.user.username}}">{{comment.user.username}}</a>: {{ comment.text }}
                                 </div>
                             </div>
+                            
                             <div class=" text-muted small">{{comment.date_created.strftime('%Y-%m-%d
                                     %H:%M:%S')}}
                             </div>
@@ -71,6 +72,26 @@ content %}
         </div>
 
         <div class="card-footer text-muted">
+            {{ post.likes | length }}
+
+            {% set user_liked = [] %}
+            {% for like in post.likes %}
+                {% if like.author_id == user.id %}
+                    {% set temp = user_liked.append(True) %}
+                {% endif %}
+            {% endfor %}  
+                
+         
+            {% if True in user_liked %}    
+                {% set icon_class = "bi bi-heart-fill btn btn-danger" %}
+            {% else %}
+                {% set icon_class = "bi bi-heart btn btn-outline-secondary" %}
+            {% endif %}
+
+            
+            <a href="/like-post/{{post.id}}" class="m-1 text-decoration-none">
+                <i class="{{icon_class}}" style="font-size: 0.8rem"></i>
+            </a>
             {{post.date_created.strftime('%Y-%m-%d %H:%M:%S')}}
         </div>
     </div>

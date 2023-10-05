@@ -25,6 +25,7 @@ def create_app():
     from .models.users import User
     from .models.posts import Post
     from .models.comments import Comment
+    from .models.likes import Like
     
     # Init Database
     db.init_app(app)

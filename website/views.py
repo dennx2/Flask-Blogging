@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from .models.posts import Post
 from .models.users import User
 from .models.comments import Comment
+from .models.likes import Like
 from . import db
 
 views = Blueprint("views", __name__)
@@ -82,7 +83,6 @@ def create_comment(post_id):
 @login_required
 def delete_comment(comment_id):
     comment = Comment.query.filter_by(id=comment_id).first()
-    post = Post.query.filter_by(id=comment.post_id)
     if not comment:
         flash("Comment does't exist.", category="error")
     elif current_user.id != comment.author_id and current_user.id != comment.post.author_id:
@@ -92,3 +92,25 @@ def delete_comment(comment_id):
         db.session.commit()
 
     return redirect(url_for("views.home"))
+
+@views.route("/like-post/<post_id>")
+def like_post(post_id):
+    post = Post.query.filter_by(id=post_id).first()
+    like = Like.query.filter_by(author_id=current_user.id, post_id=post_id).first()
+
+    if post is None:
+        flash("Post does not exist.", category="error")
+    elif like is None:
+        like = Like(author_id=current_user.id, post_id=post_id)
+        db.session.add(like)
+        db.session.commit()
+    else:
+        db.session.delete(like)
+        db.session.commit()
+        
+    return redirect(url_for("views.home"))
+
+
+
+
+
