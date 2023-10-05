@@ -94,6 +94,7 @@ def delete_comment(comment_id):
     return redirect(url_for("views.home"))
 
 @views.route("/like-post/<post_id>")
+@login_required
 def like_post(post_id):
     post = Post.query.filter_by(id=post_id).first()
     like = Like.query.filter_by(author_id=current_user.id, post_id=post_id).first()
