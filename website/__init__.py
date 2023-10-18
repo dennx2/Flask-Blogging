@@ -7,12 +7,12 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
-def create_app():
+def create_app(database_uri=f"sqlite:///{DB_NAME}"):
 
     # App config
     app = Flask(__name__)
     app.config.from_object(Config)
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_uri
 
     # Import Blueprints
     from .views import views
@@ -31,9 +31,7 @@ def create_app():
     db.init_app(app)
 
     with app.app_context():
-        if not path.exists(f"instance/{DB_NAME}"):
-            db.create_all()
-            print("Created database!")
+        db.create_all()
 
     # Login Manager
     login_manager = LoginManager()
